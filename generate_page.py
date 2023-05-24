@@ -1,4 +1,5 @@
 import cv2
+import torch
 from pytorch_AdaIN import build_decoder, build_vgg, style_transfer
 from utils import postprocess
 from utils.data import get_transforms
