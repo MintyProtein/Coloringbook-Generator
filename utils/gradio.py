@@ -1,7 +1,5 @@
-import cv2
 import numpy as np
-import torch
-from adain_transfer import *
+
 
 def add_bbox(image, box, linewidth=5):
     """ Draw a bbox above the image

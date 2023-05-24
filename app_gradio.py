@@ -2,12 +2,11 @@ import torch
 import gradio as gr
 from utils import *
 from utils.gradio import *
-from adain_transfer import *
 from sam_segment import build_sam, predict_mask_with_box
+from generate_page import *
+
 
 device = torch.device('cuda' if torch.cuda.is_available() else'cpu')
-    
-
 with gr.Blocks() as demo:
     # SamPredictor, wrapped by gradio.State
     sam = gr.State(build_sam())
