@@ -3,7 +3,7 @@ import torch.nn as nn
 from . import models
 
 # returns a pretrained vgg
-def build_vgg(checkpoint_path="./model_checkpoints/vgg_normalised.pth", device=torch.device('cuda')):
+def build_vgg(checkpoint_path="./model_checkpoints/vgg.pth", device=torch.device('cuda')):
     vgg = models.vgg
     vgg.load_state_dict(torch.load(checkpoint_path))
     vgg = nn.Sequential(*list(vgg.children())[:31])
