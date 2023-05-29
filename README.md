@@ -14,4 +14,4 @@ Demo UI built with gradio
 ```
 python app_gradio.py
 ```
-- To generate a public link, please add '''--publick_link'''
+- To generate a public link, please add ```--publick_link```
