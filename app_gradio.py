@@ -12,7 +12,7 @@ if __name__=='__main__':
     
     parser.add_argument('--decoder_path', default='./model_checkpoints/decoder.pth')
     
-    parser.add_argument('--sam_model_type', default='vit.h')
+    parser.add_argument('--sam_model_type', default='vit_h')
     
     parser.add_argument('--sam_path',  default='./model_checkpoints/sam_vit_h_4b8939.pth')
     
