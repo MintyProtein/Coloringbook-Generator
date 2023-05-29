@@ -16,7 +16,7 @@ if __name__=='__main__':
     
     parser.add_argument('--sam_path',  default='./model_checkpoints/sam_vit_h_4b8939.pth')
     
-    parser.add_argument('--public_link', type=bool, default=False)
+    parser.add_argument('--public_link', action='store_true', default=False)
     args = parser.parse_args()
 
     device = torch.device('cuda' if torch.cuda.is_available() else'cpu')
@@ -31,20 +31,23 @@ if __name__=='__main__':
         with gr.Row():
             # Col A: The input image
             with gr.Column(scale=1):
-                gr.HTML("<center><p> 1.Upload and click the image to make bbox </p></center>")
+                gr.HTML("<h3><center>Input</center></h3>")
+                gr.HTML("<center><p> - Upload the image and click on two points on the image<br>- Each points will be the corner of the bbox</p></center>")
                 input_img = gr.Image(label='Input image', show_label=False).style(height=500)
                 reset_btn = gr.Button(value='Reset')
             
             # Col B: The bbox + segmented image
             with gr.Column(scale=1):
-                gr.HTML("<center><p> 2. Click the segment button. You can adjust the background space with the slider below </p></center>")
+                gr.HTML("<h3><center>Segmentation</center></h3>")
+                gr.HTML("<center><p> - Click the segment button and remove the background.<br>- You can adjust the background ratio with the slider below </p></center>")
                 segment_img = gr.Image(label='Segment image', interactive=False).style(height=500)
                 ratio_slider = gr.Slider(label='Background ratio', minimum=1, maximum=3, value=1.3, step=0.1)
                 segment_btn = gr.Button(value='Segment')
             
             #Col C: The final image
             with gr.Column(scale=1):
-                gr.HTML("<center><p> 3. Select your generation method and click the generate button </p></center>")
+                gr.HTML("<h3><center>Output</center></h3>")
+                gr.HTML("<center><p> -Select your generation method and click the generate button.</p></center>")
                 output_img = gr.Image(label='Generated image', interactive=False).style(height=500)
                 method_dropdown = gr.Dropdown(["AdaIN", "Edge Detection"], value="AdaIN", label="Generation Method")
                 generate_btn = gr.Button(value='Generate')
@@ -104,4 +107,4 @@ if __name__=='__main__':
                         inputs=[segment_img, method_dropdown],
                         outputs=output_img)
 
-    demo.launch(share=True)
+    demo.launch(share=args.public_link)
