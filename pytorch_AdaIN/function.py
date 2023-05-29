@@ -3,17 +3,19 @@ import torch.nn as nn
 from . import models
 
 # returns a pretrained vgg
-def build_vgg(checkpoint_path="./model_checkpoints/vgg.pth", device=torch.device('cuda')):
+def build_vgg(checkpoint_path, device=torch.device('cuda')):
     vgg = models.vgg
-    vgg.load_state_dict(torch.load(checkpoint_path))
+    if checkpoint_path is not None:
+        vgg.load_state_dict(torch.load(checkpoint_path))
     vgg = nn.Sequential(*list(vgg.children())[:31])
     vgg.to(device)
     return vgg
 
 # returns a pretrained decoder
-def build_decoder(checkpoint_path="./model_checkpoints/decoder.pth", device=torch.device('cuda')):
+def build_decoder(checkpoint_path, device=torch.device('cuda')):
     decoder = models.decoder
-    decoder.load_state_dict(torch.load(checkpoint_path))
+    if checkpoint_path is not None:
+        decoder.load_state_dict(torch.load(checkpoint_path))
     decoder.to(device)
     return decoder
 

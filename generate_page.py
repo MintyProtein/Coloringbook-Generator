@@ -11,7 +11,6 @@ To get a desired output, the input image should be preprocessed by SAM and utils
 
 """
 
-
 # edge detection
 def generate_page_canny(content):
     gen_img = cv2.Canny(content, 60, 150)
@@ -19,15 +18,15 @@ def generate_page_canny(content):
     return gen_img
 
 # AdaIN
-def generate_page_adain(content, style_path='./assets/style.jpg', device='cuda'):
+def generate_page_adain(content, vgg_path='./model_checkpoints/vgg.pth', decoder_path='./model_checkpoints/decoder.pth', style_path='./assets/style.jpg', device='cuda'):
     with torch.no_grad():
         H, W, C = content.shape
         # use prepared image from style_path for style image
         style = cv2.imread(style_path)
         style = cv2.resize(style, (H, W))
         
-        vgg = build_vgg(device=device)
-        decoder = build_decoder(device=device)
+        vgg = build_vgg(checkpoint_path=vgg_path, device=device)
+        decoder = build_decoder(checkpoint_path=decoder_path, device=device)
         transforms = get_transforms()
 
         content = transforms(content)[None, :]
